@@ -1,19 +1,25 @@
 package java_advance.spring_boot_spotify.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Song {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    private Long songId;
     private String name;
     private String artist;
     private String length;
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "playlist_song",
+            joinColumns = { @JoinColumn(name = "songId") },
+            inverseJoinColumns = { @JoinColumn(name = "playlistId") }
+    )
+    private List<Playlist> playlistList;
     private boolean active;
 
     protected Song() {}
@@ -22,6 +28,7 @@ public class Song {
         this.name = name;
         this.artist = artist;
         this.length = length;
+        this.playlistList = new ArrayList<>();
         this.active = true;
     }
 
@@ -29,15 +36,15 @@ public class Song {
     public String toString() {
         return String.format(
                 "Song[id=%d, name='%s', artist='%s', length='%s', active='%s']",
-                id, name, artist, length, active);
+                songId, name, artist, length, active);
     }
 
-    public Integer getId() {
-        return id;
+    public Long getId() {
+        return songId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Long songId) {
+        this.songId = songId;
     }
 
     public String getName() {

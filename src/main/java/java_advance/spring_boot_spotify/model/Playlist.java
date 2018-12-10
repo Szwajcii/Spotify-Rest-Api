@@ -23,7 +23,6 @@ public class Playlist {
     public Playlist(String playlistName) {
         this.playlistName = playlistName;
         this.playlistSongs = new ArrayList<>();
-        this.playlistUser = new ArrayList<>();
     }
 
     public List<Song> getPlaylistSongs() {

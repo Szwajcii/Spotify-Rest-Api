@@ -5,6 +5,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PlaylistController {
 
+    private PlaylistService playlistService;
 
+    public Collection<Song> getAllSongs(){
+        return playlistService.getAllSongs();
+    }
 
 }

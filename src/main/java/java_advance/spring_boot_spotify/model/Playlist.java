@@ -13,13 +13,22 @@ public class Playlist {
     private Long playlistId;
     private String playlistName;
 
-    @ManyToMany(mappedBy = "playlistList", cascade = CascadeType.ALL)
-    private List<Song> playlistSongs = new ArrayList<Song>();
+    @ManyToMany(mappedBy = "playlistList")
+    private List<Song> playlistSongs;
 
-    @ManyToOne(mappedBy = "playlists")
-    @JoinColumn(name="userId", nullable=false)
+    @ManyToOne
     private User playlistUser;
 
+
+    public Playlist(String playlistName) {
+        this.playlistName = playlistName;
+        this.playlistSongs = new ArrayList<>();
+        this.playlistUser = new ArrayList<>();
+    }
+
+    public List<Song> getPlaylistSongs() {
+        return playlistSongs;
+    }
 
     public String getPlaylistName() {
         return playlistName;

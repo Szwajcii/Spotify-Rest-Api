@@ -1,10 +1,7 @@
 package java_advance.spring_boot_spotify.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,23 +9,25 @@ import java.util.List;
 public class Playlist {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long playlistId;
     private String playlistName;
 
     @ManyToMany(mappedBy = "playlistList")
-    private List<Song> playlistSongs = new ArrayList<Song>();
+    private List<Song> playlistSongs;
 
-    @ManyToMany(mappedBy = "")
-    private List<User> playlistUsers = new ArrayList<User>();
+    @ManyToOne
+    private User playlistUser;
 
 
-    public Long getPlaylistId() {
-        return playlistId;
+    public Playlist(String playlistName) {
+        this.playlistName = playlistName;
+        this.playlistSongs = new ArrayList<>();
+        this.playlistUser = new ArrayList<>();
     }
 
-    public void setPlaylistId(Long playlistId) {
-        this.playlistId = playlistId;
+    public List<Song> getPlaylistSongs() {
+        return playlistSongs;
     }
 
     public String getPlaylistName() {

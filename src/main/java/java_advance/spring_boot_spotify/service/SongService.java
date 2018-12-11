@@ -34,8 +34,9 @@ public class SongService implements SongServiceInterface {
     }
 
     @Override
-    public void addSong(Song song) {
-        this.songRepository.save(song);
+    public Song addSong(List<String> songDetails) {
+        Song song = new Song(songDetails.get(0), songDetails.get(1), songDetails.get(2));
+        return this.songRepository.save(song);
     }
 
     @Override
@@ -44,7 +45,7 @@ public class SongService implements SongServiceInterface {
     }
 
     @Override
-    public void addSongToPLaylist(Long id, Playlist playlist) {
-        this.songRepository.findById(id).orElse(null).addToPlaylist(playlist);
+    public void addSongToPLaylist(Long id, Long playlistId) {
+        this.songRepository.findById(id).orElse(null).addToPlaylist(playlistId);
     }
 }

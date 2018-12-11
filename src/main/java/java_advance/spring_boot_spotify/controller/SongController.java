@@ -4,9 +4,7 @@ import java_advance.spring_boot_spotify.model.Playlist;
 import java_advance.spring_boot_spotify.model.Song;
 import java_advance.spring_boot_spotify.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -25,7 +23,7 @@ public class SongController {
         return this.songService.getSongById(idLong);
     }
 
-    @GetMapping("/all")
+    @RequestMapping(method = RequestMethod.GET, path = "/all")
     public Iterable<Song> getAllSongs(){
         return this.songService.getAllSongs();
     }

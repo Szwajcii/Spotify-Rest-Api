@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlaylistService implements PlaylistServiceInterface{
@@ -24,18 +25,18 @@ public class PlaylistService implements PlaylistServiceInterface{
     }
 
     @Override
-    public List<Song> getSongByName(String name) {
-        return null;
+    public List<Song> getSongByName(Long playlistId, String name) {
+        return this.playlistRepository.findById(playlistId).getPlaylistSongs().get(name);
     }
 
     @Override
-    public Iterable<Song> getAllSongs() {
-        return null;
+    public Iterable<Song> getAllSongs(Long playlistId) {
+        return this.playlistRepository.findById(playlistId).getPlaylistSongs();
     }
 
     @Override
-    public List<Playlist> getPlaylistsByUserId(int userId) {
-        return null;
+    public Optional<Playlist> getPlaylistsByUserId(Long userId) {
+        return this.playlistRepository.findById(userId);
     }
 
     @Override

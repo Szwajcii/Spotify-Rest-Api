@@ -6,6 +6,7 @@ import java_advance.spring_boot_spotify.repository.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +39,16 @@ public class PlaylistService implements PlaylistServiceInterface{
 
     @Override
     public List<Song> getSongByName(Long playlistId, String name) {
-        return this.playlistRepository.findById(playlistId).orElse(null).getPlaylistSongs();
+        List<Song> songList = this.playlistRepository.findById(playlistId).orElse(null).getPlaylistSongs();
+
+        List<Song> songs = new ArrayList<>();
+
+        for(Song song : songList){
+            if(song.getName().equals(name)){
+                songs.add(song);
+            }
+        }
+        return songs;
     }
 
     @Override

@@ -23,12 +23,12 @@ public class PlaylistController {
         return playlistService.getAllPlaylists();
     }
 
-    @GetMapping("playlist/songs/{playlistId}")
+    @GetMapping("/playlist/songs/{playlistId}")
     public Iterable<Song> getAllSongs(@PathVariable Long playlistId){
         return playlistService.getAllSongs(playlistId);
     }
 
-    @GetMapping("playlist/songs/{playlistId}/{songName}")
+    @GetMapping("/playlist/songs/{playlistId}/{songName}")
     public List<Song> getSongByName(@PathVariable Long playlistId, @PathVariable String songName){
         return playlistService.getSongByName(playlistId, songName);
     }
@@ -36,6 +36,11 @@ public class PlaylistController {
     @RequestMapping(path = "/playlist/add", method = RequestMethod.POST)
     public Playlist addNewPlaylist(@RequestParam("playlistName") String playlistName){
         return playlistService.addNewPlaylist(playlistName);
+    }
+
+    @RequestMapping(path = "/playlist/delete")
+    public void deletePlaylist(@RequestParam("playlistId") Long playlistId){
+        this.playlistService.deletePlaylist(playlistId);
     }
 
 }

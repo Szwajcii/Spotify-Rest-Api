@@ -30,5 +30,9 @@ public class PlaylistController {
         return playlistService.getAllSongs(playlistId);
     }
 
+    @GetMapping("/all/{playlistId}/{songName}")
+    public List<Song> getSongByName(@PathVariable Long playlistId, @PathVariable String songName){
+        return playlistService.getSongByName(playlistId, songName);
+    }
 
 }

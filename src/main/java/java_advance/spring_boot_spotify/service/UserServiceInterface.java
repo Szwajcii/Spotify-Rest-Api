@@ -8,7 +8,6 @@ public interface UserServiceInterface {
     User getUserById(Long id);
     List<User> getAllUsers();
     void deleteUserById(Long id);
-    void updateUserById(Long id);
-    boolean addUser(User user);
-
+    User updateUserById(Long id, List<String> userDetails);
+    User addUser(List<String> userDetails);
 }

@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class UserService implements UserServiceInterface {
+    private static final int FIRST_NAME_INDEX = 0;
+    private static final int LAST_NAME_INDEX = 1;
+    private static final int EMAIL_INDEX = 2;
+    private static final int PHONE_INDEX = 3;
+
     private UserRepository userRepository;
 
     @Autowired
@@ -33,17 +38,20 @@ public class UserService implements UserServiceInterface {
     @Override
     public User updateUserById(Long id, List<String> userDetails) {
         User user = userRepository.findById(id).orElse(null);
-        user.setFirstName(userDetails.get(0));
-        user.setLastName(userDetails.get(1));
-        user.setEmail(userDetails.get(2));
-        user.setPhone(userDetails.get(3));
+        user.setFirstName(userDetails.get(FIRST_NAME_INDEX));
+        user.setLastName(userDetails.get(LAST_NAME_INDEX));
+        user.setEmail(userDetails.get(EMAIL_INDEX));
+        user.setPhone(userDetails.get(PHONE_INDEX));
 
         return userRepository.save(user);
     }
 
     @Override
     public User addUser(List<String> userDetails) {
-        User user = new User(userDetails.get(0), userDetails.get(1), userDetails.get(2), userDetails.get(3));
+        User user = new User(userDetails.get(FIRST_NAME_INDEX),
+                            userDetails.get(LAST_NAME_INDEX),
+                            userDetails.get(EMAIL_INDEX),
+                            userDetails.get(PHONE_INDEX));
 
         return userRepository.save(user);
     }

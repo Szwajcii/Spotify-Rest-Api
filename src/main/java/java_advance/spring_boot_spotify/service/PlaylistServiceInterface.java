@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface PlaylistServiceInterface {
 
+    List<Playlist> getAllPlaylists();
     List<Song> getSongByName(String name);
     Iterable<Song> getAllSongs();
     List<Playlist> getPlaylistsByUserId(int userId);

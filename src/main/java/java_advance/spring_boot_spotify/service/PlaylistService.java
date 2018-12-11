@@ -19,6 +19,11 @@ public class PlaylistService implements PlaylistServiceInterface{
     }
 
     @Override
+    public List<Playlist> getAllPlaylists(){
+        return (List<Playlist>) this.playlistRepository.findAll();
+    }
+
+    @Override
     public List<Song> getSongByName(String name) {
         return null;
     }

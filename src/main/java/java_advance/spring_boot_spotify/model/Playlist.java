@@ -1,10 +1,13 @@
 package java_advance.spring_boot_spotify.model;
 
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 public class Playlist {
 
@@ -25,15 +28,4 @@ public class Playlist {
         this.playlistSongs = new ArrayList<>();
     }
 
-    public List<Song> getPlaylistSongs() {
-        return playlistSongs;
-    }
-
-    public String getPlaylistName() {
-        return playlistName;
-    }
-
-    public void setPlaylistName(String playlistName) {
-        this.playlistName = playlistName;
-    }
 }

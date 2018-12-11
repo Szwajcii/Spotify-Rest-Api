@@ -17,6 +17,12 @@ public class UserController {
         this.userServiceInterface = userServiceInterface;
     }
 
+
+    @RequestMapping(method = RequestMethod.GET, path = "/users")
+    public User getUserById(@RequestParam("id") Long userId) {
+        return userServiceInterface.getUserById(userId);
+    }
+
     @RequestMapping(method = RequestMethod.POST, path = "/users/add")
     public User addUser(@RequestParam("firstName") String firstName,
                                   @RequestParam("lastName") String lastName,
@@ -38,11 +44,23 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/users/delete")
-    public void deleteUser(@RequestParam("id") Long id) {
-        userServiceInterface.deleteUserById(id);
+    public void deleteUser(@RequestParam("id") Long userId) {
+        userServiceInterface.deleteUserById(userId);
 
     }
 
-//    @RequestMapping(method = RequestMethod.PUT, path = "/users/update")
-//    public User updateUser(@RequestParam("id") Long id, @RequestParam(""))
+    @RequestMapping(method = RequestMethod.PUT, path = "/users/update")
+    public User updateUser(@RequestParam("id") Long userId,
+                           @RequestParam("firstName") String firstName,
+                           @RequestParam("lastName") String lastName,
+                           @RequestParam("email") String email,
+                           @RequestParam("phone") String phone)
+    {
+        List<String> userDetails = new ArrayList<>();
+        userDetails.add(firstName);
+        userDetails.add(lastName);
+        userDetails.add(email);
+        userDetails.add(phone);
+        return userServiceInterface.updateUserById(userId, userDetails);
+    }
 }

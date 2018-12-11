@@ -1,5 +1,6 @@
 package java_advance.spring_boot_spotify.controller;
 
+import java_advance.spring_boot_spotify.model.Playlist;
 import java_advance.spring_boot_spotify.model.Song;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +17,10 @@ public class PlaylistController {
 
     public Collection<Song> getSongsByGenre(String genre){
         return playlistService.getSongsByGenre(genre);
+    }
+
+    public Playlist getPlaylistByUserId(int userId){
+
     }
 
 }

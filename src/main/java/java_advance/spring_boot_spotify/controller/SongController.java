@@ -59,7 +59,7 @@ public class SongController {
     public void addSongToPlaylist(@RequestParam("songId") String songId,
                                   @RequestParam("playlistId") String playlistId){
         Long songIdLong = Long.parseLong(songId);
-        Long playlistIdLong = Long.parseLong(playlistId);
+
         this.songService.addSongToPLaylist(songIdLong, playlistIdLong);
     }
 }

@@ -18,8 +18,8 @@ public class UserController {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, path = "/users")
-    public User getUserById(@RequestParam("id") Long userId) {
+    @RequestMapping(method = RequestMethod.GET, path = "/users/{id}")
+    public User getUserById(@PathVariable Long userId) {
         return userServiceInterface.getUserById(userId);
     }
 
@@ -38,7 +38,7 @@ public class UserController {
         return userServiceInterface.addUser(userDetails);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/users")
+    @RequestMapping(method = RequestMethod.GET, path = "/users/*")
     public List<User> getUsers() {
         return userServiceInterface.getAllUsers();
     }
@@ -49,8 +49,8 @@ public class UserController {
 
     }
 
-    @RequestMapping(method = RequestMethod.PUT, path = "/users/update")
-    public User updateUser(@RequestParam("id") Long userId,
+    @RequestMapping(method = RequestMethod.PUT, path = "/users/update/{id}")
+    public User updateUser(@PathVariable Long userId,
                            @RequestParam("firstName") String firstName,
                            @RequestParam("lastName") String lastName,
                            @RequestParam("email") String email,

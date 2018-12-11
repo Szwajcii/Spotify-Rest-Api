@@ -26,12 +26,12 @@ public class PlaylistService implements PlaylistServiceInterface{
 
     @Override
     public List<Song> getSongByName(Long playlistId, String name) {
-        return this.playlistRepository.findById(playlistId).getPlaylistSongs().get(name);
+        return this.playlistRepository.findById(playlistId).orElse(null).getPlaylistSongs();
     }
 
     @Override
     public Iterable<Song> getAllSongs(Long playlistId) {
-        return this.playlistRepository.findById(playlistId).getPlaylistSongs();
+        return this.playlistRepository.findById(playlistId).orElse(null).getPlaylistSongs();
     }
 
     @Override

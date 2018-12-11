@@ -2,6 +2,7 @@ package java_advance.spring_boot_spotify.model;
 
 
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class Playlist {
     private String playlistName;
 
     @ManyToMany(mappedBy = "playlistList")
+    @NonNull
     private List<Song> playlistSongs;
 
     @ManyToOne
@@ -28,4 +30,7 @@ public class Playlist {
         this.playlistSongs = new ArrayList<>();
     }
 
+    public List<Song> getPlaylistSongs() {
+        return playlistSongs;
+    }
 }

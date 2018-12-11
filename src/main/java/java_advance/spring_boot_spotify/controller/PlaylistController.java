@@ -4,9 +4,7 @@ import java_advance.spring_boot_spotify.model.Playlist;
 import java_advance.spring_boot_spotify.model.Song;
 import java_advance.spring_boot_spotify.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class PlaylistController {
         this.playlistService = playlistService;
     }
 
-    @GetMapping("/all")
+    @RequestMapping(path = "/all", method = RequestMethod.GET)
     public List<Playlist> getAllPlaylists(){
         return playlistService.getAllPlaylists();
     }

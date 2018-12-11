@@ -22,21 +22,29 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public List<User> getAllUsers() {
-        return null;
+        return userRepository.findAll();
     }
 
     @Override
     public void deleteUserById(Long id) {
-
+        userRepository.deleteById(id);
     }
 
     @Override
-    public void updateUserById(Long id) {
+    public User updateUserById(Long id, List<String> userDetails) {
+        User user = userRepository.findById(id).orElse(null);
+        user.setFirstName(userDetails.get(0));
+        user.setLastName(userDetails.get(1));
+        user.setEmail(userDetails.get(2));
+        user.setPhone(userDetails.get(3));
 
+        return userRepository.save(user);
     }
 
     @Override
-    public boolean addUser(User user) {
-        return false;
+    public User addUser(List<String> userDetails) {
+        User user = new User(userDetails.get(0), userDetails.get(1), userDetails.get(2), userDetails.get(3));
+
+        return userRepository.save(user);
     }
 }

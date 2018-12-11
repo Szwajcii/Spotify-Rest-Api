@@ -1,8 +1,9 @@
 package java_advance.spring_boot_spotify.model;
 
 import lombok.Data;
+import lombok.NonNull;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -16,19 +17,19 @@ public class User {
     @Column(name = "userId", updatable = false, nullable = false)
     private Long userId;
 
-    @NotNull
+    @NonNull
     @Size(min = 2, max = 30)
     private String firstName;
 
     @Size(min = 2, max = 30)
-    @NotNull
+    @NonNull
     private String lastName;
 
     @Pattern(regexp = "^[^\\s]([A-Za-z0-9_.]{2,20})@([A-Za-z0-9]{2,20}).([a-z]{2,13})$")
-    @NotNull
+    @NonNull
     private String email;
 
-    @NotNull
+    @NonNull
     @Pattern(regexp = "^([0-9]{3})-([0-9]{3})-([0-9]{3})$")
     private String phone;
 

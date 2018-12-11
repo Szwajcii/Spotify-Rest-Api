@@ -27,10 +27,12 @@ public class User {
 
     @Pattern(regexp = "^[^\\s]([A-Za-z0-9_.]{2,20})@([A-Za-z0-9]{2,20}).([a-z]{2,13})$")
     @NonNull
+    @Column(unique = true)
     private String email;
 
     @NonNull
     @Pattern(regexp = "^([0-9]{3})-([0-9]{3})-([0-9]{3})$")
+    @Column(unique = true)
     private String phone;
 
     @OneToMany(mappedBy = "playlistUser", cascade = CascadeType.ALL, orphanRemoval = true)

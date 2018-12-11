@@ -56,10 +56,6 @@ public class PlaylistService implements PlaylistServiceInterface{
         return this.playlistRepository.findById(playlistId).orElse(null).getPlaylistSongs();
     }
 
-    @Override
-    public Optional<Playlist> getPlaylistsByUserId(Long userId) {
-        return this.playlistRepository.findById(userId);
-    }
 
     @Override
     public void deleteSongByName(String songName) {

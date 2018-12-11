@@ -13,7 +13,6 @@ public interface PlaylistServiceInterface {
     List<Playlist> getAllPlaylists();
     List<Song> getSongByName(Long playlistId, String name);
     Iterable<Song> getAllSongsFromPlaylist(Long playlistId);
-    Optional<Playlist> getPlaylistsByUserId(Long userId);
     void deleteSongByName(String songName);
 
 }

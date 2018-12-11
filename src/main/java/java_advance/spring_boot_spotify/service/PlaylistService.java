@@ -20,6 +20,18 @@ public class PlaylistService implements PlaylistServiceInterface{
     }
 
     @Override
+    public Playlist addNewPlaylist(String playlistName) {
+        Playlist playlist = new Playlist(playlistName);
+        this.playlistRepository.save(playlist);
+        return playlist;
+    }
+
+    @Override
+    public void deletePlaylist(Long playlistId) {
+        this.playlistRepository.deleteById(playlistId);
+    }
+
+    @Override
     public List<Playlist> getAllPlaylists(){
         return (List<Playlist>) this.playlistRepository.findAll();
     }

@@ -18,19 +18,24 @@ public class PlaylistController {
         this.playlistService = playlistService;
     }
 
-    @RequestMapping(path = "/all", method = RequestMethod.GET)
+    @RequestMapping(path = "/playlist", method = RequestMethod.GET)
     public List<Playlist> getAllPlaylists(){
         return playlistService.getAllPlaylists();
     }
 
-    @GetMapping("/all/{playlistId}")
+    @GetMapping("playlist/songs/{playlistId}")
     public Iterable<Song> getAllSongs(@PathVariable Long playlistId){
         return playlistService.getAllSongs(playlistId);
     }
 
-    @GetMapping("/all/{playlistId}/{songName}")
+    @GetMapping("playlist/songs/{playlistId}/{songName}")
     public List<Song> getSongByName(@PathVariable Long playlistId, @PathVariable String songName){
         return playlistService.getSongByName(playlistId, songName);
+    }
+
+    @RequestMapping(path = "/playlist/add", method = RequestMethod.POST)
+    public Playlist addNewPlaylist(@RequestParam("playlistName") String playlistName){
+        return playlistService.addNewPlaylist(playlistName);
     }
 
 }

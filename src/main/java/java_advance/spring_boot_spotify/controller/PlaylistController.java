@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class PlaylistController {
@@ -21,6 +22,11 @@ public class PlaylistController {
     @RequestMapping(path = "/playlist", method = RequestMethod.GET)
     public List<Playlist> getAllPlaylists(){
         return playlistService.getAllPlaylists();
+    }
+
+    @RequestMapping(path = "/playlist/{playlistId}", method = RequestMethod.GET)
+    public Optional<Playlist> getPlaylistById(@PathVariable("playlistId") Long playlistId){
+        return this.playlistService.getPlaylistById(playlistId);
     }
 
     @RequestMapping(path = "/playlist/songs/{playlistId}", method = RequestMethod.GET)

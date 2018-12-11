@@ -28,6 +28,11 @@ public class PlaylistService implements PlaylistServiceInterface{
     }
 
     @Override
+    public Optional<Playlist> getPlaylistById(Long playlistId) {
+        return this.playlistRepository.findById(playlistId);
+    }
+
+    @Override
     public void deletePlaylist(Long playlistId) {
         this.playlistRepository.deleteById(playlistId);
     }

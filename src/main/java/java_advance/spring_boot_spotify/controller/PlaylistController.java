@@ -23,23 +23,24 @@ public class PlaylistController {
         return playlistService.getAllPlaylists();
     }
 
-    @GetMapping("/playlist/songs/{playlistId}")
-    public Iterable<Song> getAllSongs(@PathVariable Long playlistId){
-        return playlistService.getAllSongs(playlistId);
+    @RequestMapping(path = "/playlist/songs/{playlistId}", method = RequestMethod.GET)
+    public Iterable<Song> getAllSongsFromPlaylist(@PathVariable("playlistId") Long playlistId){
+        return playlistService.getAllSongsFromPlaylist(playlistId);
     }
 
-    @GetMapping("/playlist/songs/{playlistId}/{songName}")
-    public List<Song> getSongByName(@PathVariable Long playlistId, @PathVariable String songName){
+    @RequestMapping(path = "/playlist/songs/{playlistId}/{songName}", method = RequestMethod.GET)
+    public List<Song> getSongByName(@PathVariable("playlistId") Long playlistId,
+                                    @PathVariable("songName") String songName){
         return playlistService.getSongByName(playlistId, songName);
     }
 
-    @RequestMapping(path = "/playlist/add", method = RequestMethod.POST)
-    public Playlist addNewPlaylist(@RequestParam("playlistName") String playlistName){
+    @RequestMapping(path = "/playlistId/add/{playlistName}", method = RequestMethod.POST)
+    public Playlist addNewPlaylist(@PathVariable("playlistName") String playlistName){
         return playlistService.addNewPlaylist(playlistName);
     }
 
-    @RequestMapping(path = "/playlist/delete")
-    public void deletePlaylist(@RequestParam("playlistId") Long playlistId){
+    @RequestMapping(path = "/playlist/delete/{playlistId}", method = RequestMethod.DELETE)
+    public void deletePlaylist(@PathVariable("playlistId") Long playlistId){
         this.playlistService.deletePlaylist(playlistId);
     }
 

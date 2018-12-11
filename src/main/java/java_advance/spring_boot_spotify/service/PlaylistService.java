@@ -52,7 +52,7 @@ public class PlaylistService implements PlaylistServiceInterface{
     }
 
     @Override
-    public Iterable<Song> getAllSongs(Long playlistId) {
+    public Iterable<Song> getAllSongsFromPlaylist(Long playlistId) {
         return this.playlistRepository.findById(playlistId).orElse(null).getPlaylistSongs();
     }
 

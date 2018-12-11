@@ -1,5 +1,6 @@
 package java_advance.spring_boot_spotify.service;
 
+import java_advance.spring_boot_spotify.model.Playlist;
 import java_advance.spring_boot_spotify.model.Song;
 import java_advance.spring_boot_spotify.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,10 @@ public class SongService implements SongServiceInterface {
     @Override
     public void archiveSong(Long id) {
         this.songRepository.findById(id).orElse(null).setActive(false);
+    }
+
+    @Override
+    public void addSongToPLaylist(Long id, Playlist playlist) {
+        this.songRepository.findById(id).orElse(null).addToPlaylist(playlist);
     }
 }

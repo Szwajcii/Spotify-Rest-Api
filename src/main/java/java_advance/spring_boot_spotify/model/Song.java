@@ -41,4 +41,8 @@ public class Song {
                 "Song[id=%d, name='%s', artist='%s', length='%s', active='%s']",
                 songId, name, artist, length, active);
     }
+
+    public void addToPlaylist(Playlist playlist){
+        this.playlistList.add(playlist);
+    }
 }

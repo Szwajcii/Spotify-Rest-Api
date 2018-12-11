@@ -1,5 +1,6 @@
 package java_advance.spring_boot_spotify.controller;
 
+import java_advance.spring_boot_spotify.model.Playlist;
 import java_advance.spring_boot_spotify.model.Song;
 import java_advance.spring_boot_spotify.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,9 @@ public class SongController {
 
     public void archiveSongById(Long id){
         this.songService.archiveSong(id);
+    }
+
+    public void addSongToPlaylist(Long songId, Playlist playlist){
+        this.songService.addSongToPLaylist(songId, playlist);
     }
 }

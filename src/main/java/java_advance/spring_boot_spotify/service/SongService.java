@@ -45,7 +45,7 @@ public class SongService implements SongServiceInterface {
     }
 
     @Override
-    public void addSongToPLaylist(Long id, Long playlistId) {
-        this.songRepository.findById(id).orElse(null).addToPlaylist(playlistId);
+    public void addSongToPLaylist(Long id, Playlist playlist) {
+        this.songRepository.findById(id).orElse(null).addToPlaylist(playlist);
     }
 }

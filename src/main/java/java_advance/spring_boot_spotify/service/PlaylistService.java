@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PlaylistService implements PlaylistServiceInterface{
@@ -28,8 +27,8 @@ public class PlaylistService implements PlaylistServiceInterface{
     }
 
     @Override
-    public Optional<Playlist> getPlaylistById(Long playlistId) {
-        return this.playlistRepository.findById(playlistId);
+    public Playlist getPlaylistById(Long playlistId) {
+        return this.playlistRepository.findById(playlistId).orElse(null);
     }
 
     @Override

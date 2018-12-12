@@ -1,6 +1,8 @@
 package java_advance.spring_boot_spotify.controller;
 
+import java_advance.spring_boot_spotify.model.Playlist;
 import java_advance.spring_boot_spotify.model.Song;
+import java_advance.spring_boot_spotify.service.PlaylistService;
 import java_advance.spring_boot_spotify.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +14,17 @@ import java.util.Optional;
 @RestController
 public class SongController {
     private SongService songService;
+    private PlaylistService playlistService;
 
     @Autowired
-    public SongController(SongService songService){
+    public SongController(SongService songService, PlaylistService playlistService){
         this.songService = songService;
+        this.playlistService = playlistService;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/songs/all/{id}")
-    public Optional<Song> getSongById(@PathVariable("id") String id){
-        Long idLong = Long.parseLong(id);
-        return this.songService.getSongById(idLong);
+    public Optional<Song> getSongById(@PathVariable("id") Long id){
+        return this.songService.getSongById(id);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/songs/all")
@@ -30,9 +33,8 @@ public class SongController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/songs/delete/{id}")
-    public void deleteSongById(@PathVariable("id") String id){
-        Long idLong = Long.parseLong(id);
-        this.songService.deleteSongById(idLong);
+    public void deleteSongById(@PathVariable("id") Long id){
+        this.songService.deleteSongById(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/songs/add")
@@ -49,17 +51,15 @@ public class SongController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/songs/archive/{id}")
-    public Optional<Song> archiveSongById(@PathVariable("id") String id){
-        Long idLong = Long.parseLong(id);
-        this.songService.archiveSong(idLong);
-        return this.songService.getSongById(idLong);
+    public Optional<Song> archiveSongById(@PathVariable("id") Long id){
+        this.songService.archiveSong(id);
+        return this.songService.getSongById(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/songs/addtoplaylist")
-    public void addSongToPlaylist(@RequestParam("songId") String songId,
-                                  @RequestParam("playlistId") String playlistId){
-        Long songIdLong = Long.parseLong(songId);
-        Long playlistIdLong = Long.parseLong(playlistId);
-        this.songService.addSongToPLaylist(songIdLong, playlistIdLong);
+    public void addSongToPlaylist(@RequestParam("songId") Long songId,
+                                  @RequestParam("playlistId") Long playlistId){
+        Playlist playlist = this.playlistService.getPlaylistById(playlistId);
+        this.songService.addSongToPLaylist(songId, playlist);
     }
 }

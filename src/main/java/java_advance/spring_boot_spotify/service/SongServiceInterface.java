@@ -1,5 +1,6 @@
 package java_advance.spring_boot_spotify.service;
 
+import java_advance.spring_boot_spotify.model.Playlist;
 import java_advance.spring_boot_spotify.model.Song;
 
 import java.util.List;
@@ -11,5 +12,5 @@ public interface SongServiceInterface {
     void deleteSongById(Long id);
     Song addSong(List<String> songDetails);
     void archiveSong(Long id);
-    void addSongToPLaylist(Long id, Long playlistId);
+    void addSongToPLaylist(Long id, Playlist playlist);
 }

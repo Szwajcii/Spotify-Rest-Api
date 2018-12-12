@@ -6,6 +6,7 @@ import java_advance.spring_boot_spotify.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,16 @@ public class SongService implements SongServiceInterface {
 
     @Override
     public List<Song> getAllSongs() {
-        return this.songRepository.findAll();
+        List<Song> allSongs =  this.songRepository.findAll();
+
+        List<Song> activeSongs = new ArrayList<>();
+
+        for(Song song : allSongs){
+            if(!song.isActive()){
+                activeSongs.add(song);
+            }
+        }
+        return activeSongs;
     }
 
     @Override

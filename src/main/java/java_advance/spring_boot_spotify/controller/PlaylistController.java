@@ -25,7 +25,7 @@ public class PlaylistController {
     }
 
     @RequestMapping(path = "/playlist/{playlistId}", method = RequestMethod.GET)
-    public Optional<Playlist> getPlaylistById(@PathVariable("playlistId") Long playlistId){
+    public Playlist getPlaylistById(@PathVariable("playlistId") Long playlistId){
         return this.playlistService.getPlaylistById(playlistId);
     }
 

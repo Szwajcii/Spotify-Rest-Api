@@ -1,9 +1,12 @@
 package java_advance.spring_boot_spotify.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 public class Song {
 
@@ -19,7 +22,7 @@ public class Song {
             joinColumns = { @JoinColumn(name = "songId") },
             inverseJoinColumns = { @JoinColumn(name = "playlistId") }
     )
-    private List<Playlist> playlistList;
+    private List<Long> playlistList;
     private boolean active;
 
     protected Song() {}
@@ -39,43 +42,7 @@ public class Song {
                 songId, name, artist, length, active);
     }
 
-    public Long getId() {
-        return songId;
-    }
-
-    public void setId(Long songId) {
-        this.songId = songId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getArtist() {
-        return artist;
-    }
-
-    public void setArtist(String artist) {
-        this.artist = artist;
-    }
-
-    public String getLength() {
-        return length;
-    }
-
-    public void setLength(String length) {
-        this.length = length;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
+    public void addToPlaylist(Long playlistId){
+        this.playlistList.add(playlistId);
     }
 }

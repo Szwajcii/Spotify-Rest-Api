@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class GeneralExceptionHandler {
 
-    MailService mailService;
+    private MailService mailService;
 
     @Autowired
     public GeneralExceptionHandler(MailService mailService){

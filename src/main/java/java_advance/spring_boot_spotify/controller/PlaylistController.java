@@ -42,7 +42,7 @@ public class PlaylistController {
 
     @RequestMapping(path = "/playlist/{playlistId}/{songName}", method = RequestMethod.GET)
     public List<Song> getSongByNameFromPlaylist(@PathVariable("playlistId") Long playlistId,
-                                    @PathVariable("songName") String songName){
+                                                @PathVariable("songName") String songName){
         return playlistService.getSongByNameFromPlaylist(playlistId, songName);
     }
 
@@ -52,8 +52,16 @@ public class PlaylistController {
     }
 
     @RequestMapping(path = "/playlist/delete/{playlistId}", method = RequestMethod.DELETE)
-    public void deletePlaylist(@PathVariable("playlistId") Long playlistId){
-        this.playlistService.deletePlaylistById(playlistId);
+    public ResponseEntity deletePlaylist(@PathVariable("playlistId") Long playlistId){
+        ResponseEntity response;
+        boolean isDeleted = this.playlistService.deletePlaylistById(playlistId);
+        if(isDeleted){
+           response = new ResponseEntity(HttpStatus.OK);
+        } else {
+            throw new ResourceNotFoundException("Playlist not found!");
+        }
+
+        return response;
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)

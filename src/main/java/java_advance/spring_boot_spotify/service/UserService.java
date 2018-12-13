@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserService implements UserServiceInterface {
 
@@ -21,19 +23,29 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        User searchedUser = userRepository.findById(id).orElse(null);
+        if (!(searchedUser == null)) {
+            if (searchedUser.isArchived()) {
+                return null;
+            }
+        }
+        return searchedUser;
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.findAll();
-
+       return userRepository.findAll()
+               .stream()
+               .filter(e -> !e.isArchived())
+               .collect(Collectors.toList());
     }
 
     @Override
     public boolean deleteUserById(Long id) {
-        if (!(getUserById(id) == null)) {
-            userRepository.deleteById(id);
+        User archivedUser = getUserById(id);
+        if (!(archivedUser == null)) {
+            archivedUser.setArchived(true);
+            userRepository.save(archivedUser);
             return true;
         } else {
             return false;

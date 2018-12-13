@@ -22,7 +22,7 @@ public class Song {
             joinColumns = { @JoinColumn(name = "songId") },
             inverseJoinColumns = { @JoinColumn(name = "playlistId") }
     )
-    private List<Long> playlistList;
+    private List<Playlist> playlistList;
     private boolean active;
 
     protected Song() {}
@@ -42,7 +42,8 @@ public class Song {
                 songId, name, artist, length, active);
     }
 
-    public void addToPlaylist(Long playlistId){
-        this.playlistList.add(playlistId);
+    public void addToPlaylist(Playlist playlist){
+        this.playlistList.add(playlist);
     }
+
 }

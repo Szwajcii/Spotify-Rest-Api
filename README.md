@@ -38,8 +38,10 @@ Song:
 Playlist:
 ```
 /playlist/* = Display all playlists
+/playlistId/add/{playlistName} = Add new playlist
 /playlist/{playlistId} = Display playlist by given id
-/playlist/{playlistId}/{songName} = Display specific song from playlist by given song name and playlist id  
+/playlist/{playlistId}/{songName} = Display song from playlist by given song name and playlist id
+/playlist/delete/{playlistId} = Delete playlist by given id
 ```
 
 

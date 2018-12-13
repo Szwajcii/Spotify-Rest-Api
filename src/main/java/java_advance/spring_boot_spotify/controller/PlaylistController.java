@@ -27,8 +27,11 @@ public class PlaylistController {
     }
 
     @RequestMapping(path = "/playlist/*", method = RequestMethod.GET)
-    public List<Playlist> getAllPlaylists(){
-        return playlistService.getAllPlaylists();
+    public ResponseEntity<List<Playlist>> getAllPlaylists(){
+        ResponseEntity<List<Playlist>> response;
+        List<Playlist> result = playlistService.getAllPlaylists();
+        response = new ResponseEntity<>(result, HttpStatus.OK);
+        return response;
     }
 
     @RequestMapping(path = "/playlist/{playlistId}", method = RequestMethod.GET)

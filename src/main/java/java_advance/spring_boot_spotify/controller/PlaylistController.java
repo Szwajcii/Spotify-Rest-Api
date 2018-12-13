@@ -1,11 +1,18 @@
 package java_advance.spring_boot_spotify.controller;
 
+import java_advance.spring_boot_spotify.controller.exception.ResourceNotFoundException;
+import java_advance.spring_boot_spotify.exceptionMessage.ClientMessage;
+import java_advance.spring_boot_spotify.exceptionMessage.Message;
 import java_advance.spring_boot_spotify.model.Playlist;
 import java_advance.spring_boot_spotify.model.Song;
 import java_advance.spring_boot_spotify.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -47,6 +54,15 @@ public class PlaylistController {
     @RequestMapping(path = "/playlist/delete/{playlistId}", method = RequestMethod.DELETE)
     public void deletePlaylist(@PathVariable("playlistId") Long playlistId){
         this.playlistService.deletePlaylistById(playlistId);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Message> handleResourceNotFound(HttpServletRequest request, Exception exception) {
+        Message message = new ClientMessage(new Timestamp(System.currentTimeMillis())
+                , HttpStatus.NOT_FOUND
+                , exception.getMessage(), request.getRequestURI()
+                , "Provide proper playlist id, because there is no playlist with id like that.");
+        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
 
 }

@@ -29,6 +29,7 @@ public class Playlist {
     public Playlist(String playlistName) {
         this.playlistName = playlistName;
         this.playlistSongs = new ArrayList<>();
+        this.active = true;
     }
 
     public List<Song> getPlaylistSongs() {

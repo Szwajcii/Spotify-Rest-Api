@@ -14,9 +14,9 @@ public interface SongRepository extends CrudRepository<Song, Long> {
             nativeQuery = true)
     List<Song> findAll();
 
-    @Override
-    @Query(value = "SELECT * FROM song WHERE active = true AND id = ?1", nativeQuery = true)
-    Optional<Song> findById(Long id);
+//    @Override
+//    @Query(value = "SELECT * FROM song WHERE active = true AND id = ?1", nativeQuery = true)
+//    Optional<Song> findById(Long id);
 
 
 }

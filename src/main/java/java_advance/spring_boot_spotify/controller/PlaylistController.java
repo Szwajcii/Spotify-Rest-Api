@@ -1,6 +1,7 @@
 package java_advance.spring_boot_spotify.controller;
 
 import java_advance.spring_boot_spotify.controller.exception.ResourceNotFoundException;
+import java_advance.spring_boot_spotify.controller.exception.SimilarResourceExistsOrWrongInput;
 import java_advance.spring_boot_spotify.exceptionMessage.ClientMessage;
 import java_advance.spring_boot_spotify.exceptionMessage.Message;
 import java_advance.spring_boot_spotify.model.Playlist;
@@ -79,6 +80,16 @@ public class PlaylistController {
                 , exception.getMessage(), request.getRequestURI()
                 , "Provide proper playlist id, because there is no playlist with id like that.");
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(SimilarResourceExistsOrWrongInput.class)
+    public ResponseEntity<Message> handleSimilarResourceExistsOrWrongInput(HttpServletRequest request, Exception exception) {
+        Message message = new ClientMessage(new Timestamp(System.currentTimeMillis())
+                , HttpStatus.BAD_REQUEST
+                , exception.getMessage()
+                , request.getRequestURI()
+                , "User like that already exists or email/phone don't match patterns email(50 char length)/phone(XXX-XXX-XXX)");
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
 }

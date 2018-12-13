@@ -56,8 +56,14 @@ public class PlaylistController {
     }
 
     @RequestMapping(path = "/playlistId/add/{playlistName}", method = RequestMethod.POST)
-    public Playlist addNewPlaylist(@PathVariable("playlistName") String playlistName){
-        return playlistService.addNewPlaylist(playlistName);
+    public ResponseEntity<Playlist> addNewPlaylist(@PathVariable("playlistName") String playlistName){
+        ResponseEntity<Playlist> response;
+        try {
+            response = new ResponseEntity<>(playlistService.addNewPlaylist(playlistName), HttpStatus.OK);
+            return response;
+        } catch (Exception e){
+            throw new SimilarResourceExistsOrWrongInput("Similar playlist exists or provided info is wrong!");
+        }
     }
 
     @RequestMapping(path = "/playlist/delete/{playlistId}", method = RequestMethod.DELETE)

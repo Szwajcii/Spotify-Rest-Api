@@ -41,17 +41,17 @@ Playlist:
 /playlist/{playlistId}/{songName} = Display song from playlist by given song name and playlist id
 /playlist/delete/{playlistId} = Delete playlist by given id
 ```
-Built with:
+### Built with:
 1. Maven - Dependency Management
 2. Spring Boot
 3. PostgresSQL
 
-Authors: 
-- Bartosz Pyrz 
-- Dawid Grygier 
-- Damian Szwajkos
+### Authors: 
+- Bartosz Pyrz [Github profile](https://github.com/Czakero)
+- Dawid Grygier [Github profile](https://github.com/cyan0505)
+- Damian Szwajkos [Github profile](https://github.com/Szwajcii)
 
-More information:
+### More information:
 Project was created for Codecool programming course.
 
 

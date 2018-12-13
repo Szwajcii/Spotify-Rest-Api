@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class PlaylistService implements PlaylistServiceInterface{
 
-    private PlaylistRepository playlistRepository;
+    private final PlaylistRepository playlistRepository;
 
     @Autowired
     public PlaylistService(PlaylistRepository playlistRepository){
@@ -61,8 +61,4 @@ public class PlaylistService implements PlaylistServiceInterface{
     }
 
 
-    @Override
-    public void deleteSongByName(String songName) {
-
-    }
 }

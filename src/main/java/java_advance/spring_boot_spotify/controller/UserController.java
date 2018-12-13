@@ -1,6 +1,6 @@
 package java_advance.spring_boot_spotify.controller;
 
-import java_advance.spring_boot_spotify.controller.exception.ResourceNotFound;
+import java_advance.spring_boot_spotify.controller.exception.ResourceNotFoundException;
 import java_advance.spring_boot_spotify.controller.exception.SimilarResourceExistsOrWrongInput;
 import java_advance.spring_boot_spotify.exceptionMessage.ClientMessage;
 import java_advance.spring_boot_spotify.exceptionMessage.Message;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 public class UserController {
-    private UserServiceInterface userServiceInterface;
+    private final UserServiceInterface userServiceInterface;
 
     @Autowired
     public UserController(UserServiceInterface userServiceInterface) {
@@ -30,7 +30,7 @@ public class UserController {
         ResponseEntity<User> response;
         User user = userServiceInterface.getUserById(userId);
         if (user == null) {
-            throw new ResourceNotFound("User not found!");
+            throw new ResourceNotFoundException("User not found!");
         } else {
             response = new ResponseEntity<>(user, HttpStatus.OK);
         }
@@ -64,7 +64,7 @@ public class UserController {
         if (isDeleted) {
             response = new ResponseEntity(HttpStatus.OK);
         } else {
-            throw new ResourceNotFound("User not found!");
+            throw new ResourceNotFoundException("User not found!");
         }
         return response;
     }
@@ -74,14 +74,14 @@ public class UserController {
         ResponseEntity<User> response;
         User updatedUser = userServiceInterface.updateUserById(providedUpdatedUser);
         if (updatedUser == null) {
-            throw new ResourceNotFound("User not found!");
+            throw new ResourceNotFoundException("User not found!");
         } else {
             response = new ResponseEntity<>(updatedUser, HttpStatus.OK);
         }
         return response;
     }
 
-    @ExceptionHandler(ResourceNotFound.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Message> handleResourceNotFound(HttpServletRequest request, Exception exception) {
         Message message = new ClientMessage(new Timestamp(System.currentTimeMillis())
                 , HttpStatus.NOT_FOUND

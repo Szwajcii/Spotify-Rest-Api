@@ -13,6 +13,5 @@ public interface PlaylistServiceInterface {
     List<Playlist> getAllPlaylists();
     List<Song> getSongByName(Long playlistId, String name);
     Iterable<Song> getAllSongsFromPlaylist(Long playlistId);
-    void deleteSongByName(String songName);
 
 }

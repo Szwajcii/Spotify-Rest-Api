@@ -51,7 +51,7 @@ public class PlaylistService implements PlaylistServiceInterface{
     }
 
     @Override
-    public List<Song> getSongByName(Long playlistId, String name) {
+    public List<Song> getSongByNameFromPlaylist(Long playlistId, String name) {
         List<Song> songList = this.playlistRepository.findById(playlistId).orElse(null).getPlaylistSongs();
 
         List<Song> songs = new ArrayList<>();
@@ -71,7 +71,7 @@ public class PlaylistService implements PlaylistServiceInterface{
 
 
     @Override
-    public void deleteSongByName(String songName) {
+    public void deleteSongByNameFromPlaylist(String songName) {
 
     }
 

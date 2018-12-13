@@ -34,9 +34,9 @@ public class PlaylistController {
     }
 
     @RequestMapping(path = "/playlist/songs/{playlistId}/{songName}", method = RequestMethod.GET)
-    public List<Song> getSongByName(@PathVariable("playlistId") Long playlistId,
+    public List<Song> getSongByNameFromPlaylist(@PathVariable("playlistId") Long playlistId,
                                     @PathVariable("songName") String songName){
-        return playlistService.getSongByName(playlistId, songName);
+        return playlistService.getSongByNameFromPlaylist(playlistId, songName);
     }
 
     @RequestMapping(path = "/playlistId/add/{playlistName}", method = RequestMethod.POST)

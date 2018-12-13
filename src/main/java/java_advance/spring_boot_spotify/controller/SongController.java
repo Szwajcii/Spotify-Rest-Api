@@ -32,11 +32,6 @@ public class SongController {
         return this.songService.getAllSongs();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/songs/delete/{id}")
-    public void deleteSongById(@PathVariable("id") Long id){
-        this.songService.deleteSongById(id);
-    }
-
     @RequestMapping(method = RequestMethod.POST, path = "/songs/add")
     public Song addSong(@RequestParam("name") String name,
                         @RequestParam("artist") String artist,
@@ -51,8 +46,8 @@ public class SongController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/songs/archive/{id}")
-    public Optional<Song> archiveSongById(@PathVariable("id") Long id){
-        this.songService.archiveSong(id);
+    public Optional<Song> safeDeleteSongById(@PathVariable("id") Long id){
+        this.songService.safeDeleteSongById(id);
         return this.songService.getSongById(id);
     }
 

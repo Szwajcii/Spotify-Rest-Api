@@ -1,6 +1,6 @@
 ### Spotify Rest Api
 
-   Spotify REST API id application built with spring boot framework and postgresql.
+   Spotify REST API is application built with spring boot framework and postgresql.
 
 ### Requirements
 

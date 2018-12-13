@@ -14,10 +14,12 @@ import java.util.List;
 public class PlaylistService implements PlaylistServiceInterface{
 
     private PlaylistRepository playlistRepository;
+    private SongService songService;
 
     @Autowired
-    public PlaylistService(PlaylistRepository playlistRepository){
+    public PlaylistService(PlaylistRepository playlistRepository, SongService songService){
         this.playlistRepository = playlistRepository;
+        this.songService = songService;
     }
 
     @Override
@@ -39,8 +41,15 @@ public class PlaylistService implements PlaylistServiceInterface{
     }
 
     @Override
-    public void deletePlaylist(Long playlistId) {
-        this.playlistRepository.deleteById(playlistId);
+    public boolean deletePlaylistById(Long playlistId) {
+        Playlist archivedPlaylist = getPlaylistById(playlistId);
+        if(archivedPlaylist != null){
+            archivedPlaylist.setActive(true);
+            playlistRepository.save(archivedPlaylist);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -60,12 +69,20 @@ public class PlaylistService implements PlaylistServiceInterface{
 
 
     @Override
-    public void deleteSongByNameFromPlaylist(String songName) {
+    public boolean deleteSongByNameFromPlaylist(Long playlistId, Long songId) {
 
+        Playlist playlist = getPlaylistById(playlistId);
+
+        if(playlist != null) {
+            for (Song song : playlist.getPlaylistSongs()) {
+                if ((song.getSongId().equals(songId)) && song.isActive()) {
+                    song.setActive(false);
+                    playlistRepository.save(playlist);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
-    @Override
-    public void archivePlaylist(Long playlistId) {
-        this.playlistRepository.findById(playlistId).orElse(null).setActive(false);
-    }
 }

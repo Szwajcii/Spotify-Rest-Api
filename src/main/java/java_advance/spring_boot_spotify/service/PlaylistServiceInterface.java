@@ -9,11 +9,10 @@ public interface PlaylistServiceInterface {
 
     Playlist addNewPlaylist(String playlistName);
     Playlist getPlaylistById(Long playlistId);
-    void deletePlaylist(Long playlistId);
+    boolean deletePlaylistById(Long playlistId);
     List<Playlist> getAllPlaylists();
     List<Song> getSongByNameFromPlaylist(Long playlistId, String name);
     Iterable<Song> getAllSongsFromPlaylist(Long playlistId);
-    void deleteSongByNameFromPlaylist(String songName);
-    void archivePlaylist(Long playlistId);
+    boolean deleteSongByNameFromPlaylist(Long playlistId, Long songId);
 
 }

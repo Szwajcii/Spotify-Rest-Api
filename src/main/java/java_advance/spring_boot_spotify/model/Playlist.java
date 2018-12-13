@@ -24,6 +24,7 @@ public class Playlist {
     @ManyToOne
     private User playlistUser;
 
+    private boolean active;
 
     public Playlist(String playlistName) {
         this.playlistName = playlistName;

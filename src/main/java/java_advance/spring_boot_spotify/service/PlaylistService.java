@@ -38,7 +38,16 @@ public class PlaylistService implements PlaylistServiceInterface{
 
     @Override
     public List<Playlist> getAllPlaylists(){
-        return (List<Playlist>) this.playlistRepository.findAll();
+        List<Playlist> playlistList = this.playlistRepository.findAll();
+        List<Playlist> activePlaylists = new ArrayList<>();
+
+        for(Playlist playlist : playlistList){
+            if(playlist.isActive()){
+                activePlaylists.add(playlist);
+            }
+        }
+
+        return activePlaylists;
     }
 
     @Override
@@ -64,5 +73,10 @@ public class PlaylistService implements PlaylistServiceInterface{
     @Override
     public void deleteSongByName(String songName) {
 
+    }
+
+    @Override
+    public void archivePlaylist(Long playlistId) {
+        this.playlistRepository.findById(playlistId).orElse(null).setActive(false);
     }
 }

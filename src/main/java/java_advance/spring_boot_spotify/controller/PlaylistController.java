@@ -49,4 +49,9 @@ public class PlaylistController {
         this.playlistService.deletePlaylist(playlistId);
     }
 
+    @RequestMapping(path = "/playlist/archive/{playlistId}", method = RequestMethod.POST)
+    public void archivePlaylist(@RequestParam("playlistId") Long playlistId){
+        this.playlistService.archivePlaylist(playlistId);
+    }
+
 }

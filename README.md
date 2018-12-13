@@ -23,10 +23,33 @@ User:
 ```
 /users/* = Display all users
 /users/{id} = Display user by given id
-/users/add = Add new user
-/users/delete = Delete user by given id
+/users/add.json = Add new user
+/users/delete/{userId} = Delete user by given id
 /users/update/{id} = Update user by given id
-
 ```
 Song:
 ```
+/songs/all = Display all songs
+/songs/all/{id} = Display song by given id
+/songs/add = Add new song
+/songs/archive/{id} = Delete song by given id
+/songs/addtoplaylist = Add song to playlist
+```
+Playlist:
+```
+/playlist/* = Display all playlists
+/playlist/{playlistId} = Display playlist by given id
+/playlist/{playlistId}/{songName} = Display specific song from playlist by given song name and playlist id  
+```
+
+
+
+
+
+
+
+
+
+
+
+

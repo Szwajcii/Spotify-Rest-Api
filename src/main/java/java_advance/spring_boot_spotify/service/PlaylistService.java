@@ -1,5 +1,6 @@
 package java_advance.spring_boot_spotify.service;
 
+import java_advance.spring_boot_spotify.controller.exception.ResourceNotFound;
 import java_advance.spring_boot_spotify.model.Playlist;
 import java_advance.spring_boot_spotify.model.Song;
 import java_advance.spring_boot_spotify.repository.PlaylistRepository;
@@ -28,7 +29,13 @@ public class PlaylistService implements PlaylistServiceInterface{
 
     @Override
     public Playlist getPlaylistById(Long playlistId) {
-        return this.playlistRepository.findById(playlistId).orElse(null);
+        Playlist playlist = this.playlistRepository.findById(playlistId).orElse(null);
+
+        if (playlist == null || !playlist.isActive()) {
+            throw new ResourceNotFound("Playlist not found!");
+        }
+
+        return playlist;
     }
 
     @Override

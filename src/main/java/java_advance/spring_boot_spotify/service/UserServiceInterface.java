@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserServiceInterface {
     User getUserById(Long id);
     List<User> getAllUsers();
-    void deleteUserById(Long id);
-    User updateUserById(Long id, List<String> userDetails);
-    User addUser(List<String> userDetails);
+    boolean deleteUserById(Long id);
+    User updateUserById(User providedUpdatedUser);
+    User addUser(User newUser);
 }

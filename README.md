@@ -12,7 +12,7 @@
 6. Keep separate concerns of your app - controller, service, repository.
 7. Logging of every CRUD operation and exception to a text file using log4j.
 8. Data should be safe deleted - archived instead of physically deleted. Users should not see archived data but the data should    be present in the database.
-9.(Optionally) - send an email whenever an status code 500 is to be sent.
+9. (Optionally) - send an email whenever an status code 500 is to be sent.
 
 ### Using the app
 

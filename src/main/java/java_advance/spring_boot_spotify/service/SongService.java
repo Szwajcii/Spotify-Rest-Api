@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class SongService implements SongServiceInterface {
@@ -20,8 +20,14 @@ public class SongService implements SongServiceInterface {
     }
 
     @Override
-    public Optional<Song> getSongById(Long id) {
-        return this.songRepository.findById(id);
+    public Song getSongById(Long id) {
+        Song song = this.songRepository.findById(id).orElse(null);
+        if (!(song == null)) {
+            if (song.isActive() == false) {
+                return null;
+            }
+        }
+        return song;
     }
 
     @Override
@@ -39,8 +45,10 @@ public class SongService implements SongServiceInterface {
     }
 
     @Override
-    public void safeDeleteSongById(Long id) {
-        this.songRepository.findById(id).orElse(null).setActive(false);
+    public Song safeDeleteSongById(Long id) {
+        Song song = this.songRepository.findById(id).orElse(null);
+        song.setActive(false);
+        return this.songRepository.save(song);
     }
 
     @Override

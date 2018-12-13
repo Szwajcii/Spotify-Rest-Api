@@ -21,7 +21,7 @@ public class SongController {
         this.playlistService = playlistService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/songs/all/{id}")
+    @RequestMapping(method = RequestMethod.GET, path = "/songs/{id}")
     public Song getSongById(@PathVariable("id") Long id){
         return this.songService.getSongById(id);
     }

@@ -45,8 +45,11 @@ public class PlaylistController {
     }
 
     @RequestMapping(path = "/playlist/songs/{playlistId}", method = RequestMethod.GET)
-    public Iterable<Song> getAllSongsFromPlaylist(@PathVariable("playlistId") Long playlistId){
-        return playlistService.getAllSongsFromPlaylist(playlistId);
+    public ResponseEntity<Iterable<Song>> getAllSongsFromPlaylist(@PathVariable("playlistId") Long playlistId){
+        ResponseEntity<Iterable<Song>> response;
+        Iterable<Song> result =  playlistService.getAllSongsFromPlaylist(playlistId);
+        response = new ResponseEntity<>(result, HttpStatus.OK);
+        return response;
     }
 
     @RequestMapping(path = "/playlist/{playlistId}/{songName}", method = RequestMethod.GET)

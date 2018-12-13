@@ -1,5 +1,9 @@
 package java_advance.spring_boot_spotify.controller;
 
+import java_advance.spring_boot_spotify.controller.exception.ResourceNotFoundException;
+import java_advance.spring_boot_spotify.controller.exception.SimilarResourceExistsOrWrongInput;
+import java_advance.spring_boot_spotify.exceptionMessage.ClientMessage;
+import java_advance.spring_boot_spotify.exceptionMessage.Message;
 import java_advance.spring_boot_spotify.model.User;
 import java_advance.spring_boot_spotify.service.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
 public class UserController {
-    private UserServiceInterface userServiceInterface;
+    private final UserServiceInterface userServiceInterface;
 
     @Autowired
     public UserController(UserServiceInterface userServiceInterface) {
@@ -24,7 +30,7 @@ public class UserController {
         ResponseEntity<User> response;
         User user = userServiceInterface.getUserById(userId);
         if (user == null) {
-            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new ResourceNotFoundException("User not found!");
         } else {
             response = new ResponseEntity<>(user, HttpStatus.OK);
         }
@@ -39,9 +45,7 @@ public class UserController {
             return  response;
 
         } catch (Exception e) {
-            e.printStackTrace();
-            response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            return response;
+            throw new SimilarResourceExistsOrWrongInput("Similar user exists or provided info is wrong!");
         }
     }
 
@@ -60,7 +64,7 @@ public class UserController {
         if (isDeleted) {
             response = new ResponseEntity(HttpStatus.OK);
         } else {
-            response = new ResponseEntity(HttpStatus.NOT_FOUND);
+            throw new ResourceNotFoundException("User not found!");
         }
         return response;
     }
@@ -70,10 +74,29 @@ public class UserController {
         ResponseEntity<User> response;
         User updatedUser = userServiceInterface.updateUserById(providedUpdatedUser);
         if (updatedUser == null) {
-            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new ResourceNotFoundException("User not found!");
         } else {
             response = new ResponseEntity<>(updatedUser, HttpStatus.OK);
         }
         return response;
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Message> handleResourceNotFound(HttpServletRequest request, Exception exception) {
+        Message message = new ClientMessage(new Timestamp(System.currentTimeMillis())
+                , HttpStatus.NOT_FOUND
+                , exception.getMessage(), request.getRequestURI()
+                , "Provide proper user id, because there is no user with id like that.");
+        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(SimilarResourceExistsOrWrongInput.class)
+    public ResponseEntity<Message> handleSimilarResourceExistsOrWrongInput(HttpServletRequest request, Exception exception) {
+        Message message = new ClientMessage(new Timestamp(System.currentTimeMillis())
+                                            , HttpStatus.BAD_REQUEST
+                                            , exception.getMessage()
+                                            , request.getRequestURI()
+                                            , "User like that already exists or email/phone don't match patterns email(50 char length)/phone(XXX-XXX-XXX)");
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 }

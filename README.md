@@ -57,7 +57,7 @@ Playlist:
 - Damian Szwajkos [Github profile](https://github.com/Szwajcii)
 
 ### More information:
-Project was created for Codecool programming course.
+Project was created for **Codecool** programming course.
 
 
 

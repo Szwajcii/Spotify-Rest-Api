@@ -18,7 +18,7 @@ public class PlaylistController {
         this.playlistService = playlistService;
     }
 
-    @RequestMapping(path = "/playlist", method = RequestMethod.GET)
+    @RequestMapping(path = "/playlist/*", method = RequestMethod.GET)
     public List<Playlist> getAllPlaylists(){
         return playlistService.getAllPlaylists();
     }

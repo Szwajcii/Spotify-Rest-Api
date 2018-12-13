@@ -9,8 +9,7 @@ import java.util.Optional;
 public interface SongServiceInterface {
     Optional<Song> getSongById(Long id);
     List<Song> getAllSongs();
-    void deleteSongById(Long id);
+    void safeDeleteSongById(Long id);
     Song addSong(List<String> songDetails);
-    void archiveSong(Long id);
     void addSongToPLaylist(Long id, Playlist playlist);
 }

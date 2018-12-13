@@ -39,19 +39,14 @@ public class SongService implements SongServiceInterface {
     }
 
     @Override
-    public void deleteSongById(Long id) {
-        this.songRepository.deleteById(id);
+    public void safeDeleteSongById(Long id) {
+        this.songRepository.findById(id).orElse(null).setActive(false);
     }
 
     @Override
     public Song addSong(List<String> songDetails) {
         Song song = new Song(songDetails.get(0), songDetails.get(1), songDetails.get(2));
         return this.songRepository.save(song);
-    }
-
-    @Override
-    public void archiveSong(Long id) {
-        this.songRepository.findById(id).orElse(null).setActive(false);
     }
 
     @Override

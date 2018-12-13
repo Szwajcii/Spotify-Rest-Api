@@ -2,16 +2,17 @@ package java_advance.spring_boot_spotify.service;
 
 import java_advance.spring_boot_spotify.model.User;
 import java_advance.spring_boot_spotify.repository.UserRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserService implements UserServiceInterface {
-    private static final int FIRST_NAME_INDEX = 0;
-    private static final int LAST_NAME_INDEX = 1;
-    private static final int EMAIL_INDEX = 2;
-    private static final int PHONE_INDEX = 3;
+
+    private static final String[] IGNORED_PROPERTIES_FOR_USER_UPDATE = {"playlists", "archived"};
 
     private UserRepository userRepository;
 
@@ -22,37 +23,48 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        User searchedUser = userRepository.findById(id).orElse(null);
+        if (!(searchedUser == null)) {
+            if (searchedUser.isArchived()) {
+                return null;
+            }
+        }
+        return searchedUser;
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+       return userRepository.findAll()
+               .stream()
+               .filter(e -> !e.isArchived())
+               .collect(Collectors.toList());
     }
 
     @Override
-    public void deleteUserById(Long id) {
-        userRepository.deleteById(id);
+    public boolean deleteUserById(Long id) {
+        User archivedUser = getUserById(id);
+        if (!(archivedUser == null)) {
+            archivedUser.setArchived(true);
+            userRepository.save(archivedUser);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public User updateUserById(Long id, List<String> userDetails) {
-        User user = userRepository.findById(id).orElse(null);
-        user.setFirstName(userDetails.get(FIRST_NAME_INDEX));
-        user.setLastName(userDetails.get(LAST_NAME_INDEX));
-        user.setEmail(userDetails.get(EMAIL_INDEX));
-        user.setPhone(userDetails.get(PHONE_INDEX));
-
-        return userRepository.save(user);
+    public User updateUserById(User providedUpdatedUser) {
+        User dbUser = userRepository.findById(providedUpdatedUser.getUserId()).orElse(null);
+        if (dbUser == null) {
+            return null;
+        } else {
+            BeanUtils.copyProperties(providedUpdatedUser, dbUser, IGNORED_PROPERTIES_FOR_USER_UPDATE);
+        }
+        return userRepository.save(dbUser);
     }
 
     @Override
-    public User addUser(List<String> userDetails) {
-        User user = new User(userDetails.get(FIRST_NAME_INDEX),
-                            userDetails.get(LAST_NAME_INDEX),
-                            userDetails.get(EMAIL_INDEX),
-                            userDetails.get(PHONE_INDEX));
-
-        return userRepository.save(user);
+    public User addUser(User newUser) {
+        return userRepository.save(newUser);
     }
 }

@@ -3,9 +3,10 @@ package java_advance.spring_boot_spotify.controller;
 import java_advance.spring_boot_spotify.model.User;
 import java_advance.spring_boot_spotify.service.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,49 +19,61 @@ public class UserController {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, path = "/users/{id}")
-    public User getUserById(@PathVariable Long userId) {
-        return userServiceInterface.getUserById(userId);
+    @RequestMapping(method = RequestMethod.GET, path = "/users/{userId}", produces = "application/json")
+    public ResponseEntity<User> getUserById(@PathVariable Long userId) {
+        ResponseEntity<User> response;
+        User user = userServiceInterface.getUserById(userId);
+        if (user == null) {
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            response = new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return response;
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/users/add")
-    public User addUser(@RequestParam("firstName") String firstName,
-                                  @RequestParam("lastName") String lastName,
-                                  @RequestParam("email") String email,
-                                  @RequestParam("phone") String phone)
-    {
-        List<String> userDetails = new ArrayList<>();
-        userDetails.add(firstName);
-        userDetails.add(lastName);
-        userDetails.add(email);
-        userDetails.add(phone);
+    @RequestMapping(method = RequestMethod.POST, path = "/users/add.json", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<User> addUser(@RequestBody User newUser) {
+        ResponseEntity<User> response;
+        try {
+            response = new ResponseEntity<>(userServiceInterface.addUser(newUser), HttpStatus.OK);
+            return  response;
 
-        return userServiceInterface.addUser(userDetails);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return response;
+        }
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/users/*")
-    public List<User> getUsers() {
-        return userServiceInterface.getAllUsers();
+    @RequestMapping(method = RequestMethod.GET, path = "/users", produces = "application/json")
+    public ResponseEntity<List<User>> getUsers() {
+        ResponseEntity<List<User>> response;
+        List<User> result = userServiceInterface.getAllUsers();
+        response = new ResponseEntity<>(result, HttpStatus.OK);
+        return response;
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, path = "/users/delete")
-    public void deleteUser(@RequestParam("id") Long userId) {
-        userServiceInterface.deleteUserById(userId);
-
+    @RequestMapping(method = RequestMethod.DELETE, path = "/users/delete/{userId}")
+    public ResponseEntity deleteUser(@PathVariable Long userId) {
+        ResponseEntity response;
+        boolean isDeleted = userServiceInterface.deleteUserById(userId);
+        if (isDeleted) {
+            response = new ResponseEntity(HttpStatus.OK);
+        } else {
+            response = new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        return response;
     }
 
-    @RequestMapping(method = RequestMethod.PUT, path = "/users/update/{id}")
-    public User updateUser(@PathVariable Long userId,
-                           @RequestParam("firstName") String firstName,
-                           @RequestParam("lastName") String lastName,
-                           @RequestParam("email") String email,
-                           @RequestParam("phone") String phone)
-    {
-        List<String> userDetails = new ArrayList<>();
-        userDetails.add(firstName);
-        userDetails.add(lastName);
-        userDetails.add(email);
-        userDetails.add(phone);
-        return userServiceInterface.updateUserById(userId, userDetails);
+    @RequestMapping(method = RequestMethod.PUT, path = "/users/update", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<User> updateUser(@RequestBody User providedUpdatedUser) {
+        ResponseEntity<User> response;
+        User updatedUser = userServiceInterface.updateUserById(providedUpdatedUser);
+        if (updatedUser == null) {
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            response = new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        }
+        return response;
     }
 }

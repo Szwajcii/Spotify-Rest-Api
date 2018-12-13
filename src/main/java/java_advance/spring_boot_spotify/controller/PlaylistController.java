@@ -33,7 +33,7 @@ public class PlaylistController {
         return playlistService.getAllSongsFromPlaylist(playlistId);
     }
 
-    @RequestMapping(path = "/playlist/songs/{playlistId}/{songName}", method = RequestMethod.GET)
+    @RequestMapping(path = "/playlist/{playlistId}/{songName}", method = RequestMethod.GET)
     public List<Song> getSongByNameFromPlaylist(@PathVariable("playlistId") Long playlistId,
                                     @PathVariable("songName") String songName){
         return playlistService.getSongByNameFromPlaylist(playlistId, songName);

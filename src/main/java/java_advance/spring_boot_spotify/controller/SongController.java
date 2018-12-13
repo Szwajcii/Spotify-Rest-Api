@@ -13,8 +13,8 @@ import java.util.Optional;
 
 @RestController
 public class SongController {
-    private SongService songService;
-    private PlaylistService playlistService;
+    private final SongService songService;
+    private final PlaylistService playlistService;
 
     @Autowired
     public SongController(SongService songService, PlaylistService playlistService){

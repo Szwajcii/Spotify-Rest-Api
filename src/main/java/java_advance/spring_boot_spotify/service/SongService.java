@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class SongService implements SongServiceInterface {
-    private SongRepository songRepository;
+    private final SongRepository songRepository;
 
     @Autowired
     public SongService(SongRepository songRepository){

@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 public class UserController {
-    private UserServiceInterface userServiceInterface;
+    private final UserServiceInterface userServiceInterface;
 
     @Autowired
     public UserController(UserServiceInterface userServiceInterface) {

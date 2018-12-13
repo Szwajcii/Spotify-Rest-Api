@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Interceptor implements HandlerInterceptor {
 
-        private static Logger log = LoggerFactory.getLogger(Interceptor.class);
+        private static final Logger log = LoggerFactory.getLogger(Interceptor.class);
 
     @Bean
     public CommonsRequestLoggingFilter requestLoggingFilter() {

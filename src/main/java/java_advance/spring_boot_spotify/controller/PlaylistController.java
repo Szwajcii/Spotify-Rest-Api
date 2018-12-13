@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 public class PlaylistController {
 
-    private PlaylistService playlistService;
+    private final PlaylistService playlistService;
 
     @Autowired
     public PlaylistController(PlaylistService playlistService){

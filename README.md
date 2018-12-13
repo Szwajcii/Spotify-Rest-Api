@@ -46,6 +46,11 @@ Playlist:
 2. Spring Boot
 3. PostgresSQL
 
+### Tools:
+1. IntelliJ IDEA
+2. pgAdmin III
+3. Postman
+
 ### Authors: 
 - Bartosz Pyrz [Github profile](https://github.com/Czakero)
 - Dawid Grygier [Github profile](https://github.com/cyan0505)

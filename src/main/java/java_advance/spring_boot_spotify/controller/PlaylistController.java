@@ -31,8 +31,16 @@ public class PlaylistController {
     }
 
     @RequestMapping(path = "/playlist/{playlistId}", method = RequestMethod.GET)
-    public Playlist getPlaylistById(@PathVariable("playlistId") Long playlistId){
-        return this.playlistService.getPlaylistById(playlistId);
+    public ResponseEntity<Playlist> getPlaylistById(@PathVariable("playlistId") Long playlistId){
+        ResponseEntity<Playlist> response;
+        Playlist playlist = this.playlistService.getPlaylistById(playlistId);
+        if(playlist == null){
+            throw new ResourceNotFoundException("Playlist not found!");
+        } else {
+            response = new ResponseEntity<>(playlist, HttpStatus.OK);
+        }
+
+        return response;
     }
 
     @RequestMapping(path = "/playlist/songs/{playlistId}", method = RequestMethod.GET)

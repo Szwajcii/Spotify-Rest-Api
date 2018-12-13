@@ -38,30 +38,12 @@ public class PlaylistService implements PlaylistServiceInterface{
 
     @Override
     public List<Playlist> getAllPlaylists(){
-        List<Playlist> playlistList = this.playlistRepository.findAll();
-        List<Playlist> activePlaylists = new ArrayList<>();
-
-        for(Playlist playlist : playlistList){
-            if(playlist.isActive()){
-                activePlaylists.add(playlist);
-            }
-        }
-
-        return activePlaylists;
+        return this.playlistRepository.findAll();
     }
 
     @Override
     public List<Song> getSongByNameFromPlaylist(Long playlistId, String name) {
-        List<Song> songList = this.playlistRepository.findById(playlistId).orElse(null).getPlaylistSongs();
-
-        List<Song> songs = new ArrayList<>();
-
-        for(Song song : songList){
-            if(song.getName().equals(name)){
-                songs.add(song);
-            }
-        }
-        return songs;
+        return this.playlistRepository.findById(playlistId).orElse(null).getPlaylistSongs();
     }
 
     @Override

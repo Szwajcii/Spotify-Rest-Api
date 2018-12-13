@@ -42,7 +42,7 @@ public abstract class Message {
         this.path = path;
     }
 
-    public Message(Timestamp timestamp, HttpStatus status, String message, String path) {
+    Message(Timestamp timestamp, HttpStatus status, String message, String path) {
         this.timestamp = timestamp;
         this.status = status;
         this.message = message;

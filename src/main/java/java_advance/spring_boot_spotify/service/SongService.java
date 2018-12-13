@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 public class SongService implements SongServiceInterface {
-    private SongRepository songRepository;
+    private final SongRepository songRepository;
 
     @Autowired
     public SongService(SongRepository songRepository){
@@ -22,11 +22,7 @@ public class SongService implements SongServiceInterface {
     @Override
     public Song getSongById(Long id) {
         Song song = this.songRepository.findById(id).orElse(null);
-        if (!(song == null)) {
-            if (song.isActive() == false) {
-                return null;
-            }
-        }
+
         return song;
     }
 

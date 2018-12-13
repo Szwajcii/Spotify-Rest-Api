@@ -14,7 +14,7 @@ public class UserService implements UserServiceInterface {
 
     private static final String[] IGNORED_PROPERTIES_FOR_USER_UPDATE = {"playlists", "archived"};
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserService(UserRepository userRepository) {

@@ -1,5 +1,3 @@
-# spring-boot-project-Szwajcii
-
 ### Spotify Rest Api
 
    Spotify REST API id application built with spring boot framework and postgresql.
@@ -43,7 +41,18 @@ Playlist:
 /playlist/{playlistId}/{songName} = Display song from playlist by given song name and playlist id
 /playlist/delete/{playlistId} = Delete playlist by given id
 ```
+Built with:
+1. Maven - Dependency Management
+2. Spring Boot
+3. PostgresSQL
 
+Authors: 
+- Bartosz Pyrz 
+- Dawid Grygier 
+- Damian Szwajkos
+
+More information:
+Project was created for Codecool programming course.
 
 
 

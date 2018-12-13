@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class SongController {
@@ -22,8 +21,8 @@ public class SongController {
         this.playlistService = playlistService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/songs/all/{id}")
-    public Optional<Song> getSongById(@PathVariable("id") Long id){
+    @RequestMapping(method = RequestMethod.GET, path = "/songs/{id}")
+    public Song getSongById(@PathVariable("id") Long id){
         return this.songService.getSongById(id);
     }
 
@@ -46,7 +45,7 @@ public class SongController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/songs/archive/{id}")
-    public Optional<Song> safeDeleteSongById(@PathVariable("id") Long id){
+    public Song safeDeleteSongById(@PathVariable("id") Long id){
         this.songService.safeDeleteSongById(id);
         return this.songService.getSongById(id);
     }

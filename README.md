@@ -12,35 +12,34 @@
 6. Keep separate concerns of your app - controller, service, repository.
 7. Logging of every CRUD operation and exception to a text file using log4j.
 8. Data should be safe deleted - archived instead of physically deleted. Users should not see archived data but the data should    be present in the database.
-9. (Optionally) - send an email whenever an status code 500 is to be sent.
 
-### Using the app
+### Using the API (All paths returns response only in JSON format)
 
 **End points**
 
 User:
 ```
-/users/* = Display all users
-/users/{id} = Display user by given id
-/users/add.json = Add new user
-/users/delete/{userId} = Delete user by given id
-/users/update/{id} = Update user by given id
+GET /users = Display all users
+GET /users/{id} = Display user by given id
+POST /users/add.json = Add new user
+DELETE /users/delete/{userId} = Delete user by given id
+PUT /users/update/{id} = Update user by given id
 ```
 Song:
 ```
-/songs/all = Display all songs
-/songs/{id} = Display song by given id
-/songs/add = Add new song
-/songs/archive/{id} = Delete song by given id
-/songs/addtoplaylist = Add song to playlist
+GET /songs/all = Display all songs
+GET /songs/{id} = Display song by given id
+POST /songs/add = Add new song
+DELETE /songs/archive/{id} = Delete song by given id
+POST /songs/addtoplaylist = Add song to playlist
 ```
 Playlist:
 ```
-/playlist/* = Display all playlists
-/playlistId/add/{playlistName} = Add new playlist
-/playlist/{playlistId} = Display playlist by given id
-/playlist/{playlistId}/{songName} = Display song from playlist by given song name and playlist id
-/playlist/delete/{playlistId} = Delete playlist by given id
+GET /playlist/* = Display all playlists
+POST /playlistId/add/{playlistName} = Add new playlist
+GET/playlist/{playlistId} = Display playlist by given id
+GET /playlist/{playlistId}/{songName} = Display song from playlist by given song name and playlist id
+DELETE /playlist/delete/{playlistId} = Delete playlist by given id
 ```
 ### Built with:
 1. Maven - Dependency Management
@@ -56,17 +55,3 @@ Playlist:
 - Bartosz Pyrz [Github profile](https://github.com/Czakero)
 - Dawid Grygier [Github profile](https://github.com/cyan0505)
 - Damian Szwajkos [Github profile](https://github.com/Szwajcii)
-
-### More information:
-Project was created for **Codecool** programming course.
-
-
-
-
-
-
-
-
-
-
-

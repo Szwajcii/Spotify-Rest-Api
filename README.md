@@ -37,7 +37,7 @@ Playlist:
 ```
 GET /playlist/* = Display all playlists
 POST /playlistId/add/{playlistName} = Add new playlist
-GET/playlist/{playlistId} = Display playlist by given id
+GET /playlist/{playlistId} = Display playlist by given id
 GET /playlist/{playlistId}/{songName} = Display song from playlist by given song name and playlist id
 DELETE /playlist/delete/{playlistId} = Delete playlist by given id
 ```

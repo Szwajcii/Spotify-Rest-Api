@@ -2,7 +2,7 @@ package java_advance.spring_boot_spotify.controller;
 
 
 import java_advance.spring_boot_spotify.controller.exception.ResourceNotFoundException;
-import java_advance.spring_boot_spotify.controller.exception.SimilarResourceExistsOrWrongInput;
+import java_advance.spring_boot_spotify.controller.exception.SimilarResourceExistsOrWrongInputException;
 import java_advance.spring_boot_spotify.exceptionMessage.ClientMessage;
 import java_advance.spring_boot_spotify.exceptionMessage.Message;
 import java_advance.spring_boot_spotify.model.User;
@@ -46,7 +46,7 @@ public class UserController {
             return  response;
 
         } catch (Exception e) {
-            throw new SimilarResourceExistsOrWrongInput("Similar user exists or provided info is wrong!");
+            throw new SimilarResourceExistsOrWrongInputException("Similar user exists or provided info is wrong!");
         }
     }
 
@@ -91,7 +91,7 @@ public class UserController {
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(SimilarResourceExistsOrWrongInput.class)
+    @ExceptionHandler(SimilarResourceExistsOrWrongInputException.class)
     public ResponseEntity<Message> handleSimilarResourceExistsOrWrongInput(HttpServletRequest request, Exception exception) {
         Message message = new ClientMessage(new Timestamp(System.currentTimeMillis())
                                             , HttpStatus.BAD_REQUEST

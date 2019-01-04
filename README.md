@@ -15,6 +15,13 @@
 
 ### Using the API (All paths returns response only in JSON format)
 
+1. Download the package.
+2. This project is based on postgreSQL, check the src/main/resources/application.properties file, which consists of crucial info to run our app, you should create database and user as the file configuration tells, but if you want to provide your own customization you should rebuild the project and run it from your IDE(If you do that you don't need to read rest of the points excluding 5-th) or you can extract project to jar and follow instructions.
+3. Navigate to out/artifacts/spring_boot_project_Szwajcii_jar folder.
+4. Use "java -jar spring-boot-project-Szwajcii.jar" command (Ubuntu terminal).
+5. Use Postman or other software to feed API with your requests, the server is listening on http://localhost:8080.
+
+
 **End points**
 
 User:

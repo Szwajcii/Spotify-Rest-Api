@@ -31,7 +31,7 @@ public class SongController {
     @RequestMapping(method = RequestMethod.GET, path = "/songs/{id}")
     public Song getSongById(@PathVariable("id") Long id){
         Song song = this.songService.getSongById(id);
-        if ((song == null) || song.isActive() == false) {
+        if ((song == null) || !song.isActive()) {
                 throw new ResourceNotFoundException("Song not found!") ;
             }
         return song;
@@ -55,10 +55,10 @@ public class SongController {
         return songService.addSong(songDetails);
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/songs/archive/{id}")
+    @RequestMapping(method = RequestMethod.DELETE, path = "/songs/archive/{id}")
     public Song safeDeleteSongById(@PathVariable("id") Long id){
         Song song = this.songService.getSongById(id);
-        if ((song == null) || song.isActive() == false) {
+        if ((song == null) || !song.isActive()) {
             throw new ResourceNotFoundException("Song not found!") ;
         }
         this.songService.safeDeleteSongById(id);
